@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+"use client"; // <-- This is the only line you need to add
+
+import React, { useState } from "react";
 
 export default function ContactUs() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('');
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,17 +14,21 @@ export default function ContactUs() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
-      setStatus('Please fill all fields');
+      setStatus("Please fill all fields");
       return;
     }
-    setStatus('Message sent successfully!');
-    setForm({ name: '', email: '', message: '' });
+    // In a real app, you'd send this form data to a server or API here
+    setStatus("Message sent successfully!");
+    setForm({ name: "", email: "", message: "" });
   };
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-20">
+    <div className="max-w-xl bg-white mx-auto px-4 py-20">
       <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
-      <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 bg-white p-6 rounded-lg shadow"
+      >
         <input
           type="text"
           name="name"
