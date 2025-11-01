@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -178,4 +178,22 @@ const PaymentForm = () => {
   );
 };
 
-export default PaymentForm;
+// Wrap PaymentForm with Suspense
+export default function Payment() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 py-12">
+          <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+            <div className="flex flex-col items-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+              <p className="mt-4 text-gray-600">Loading payment form...</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <PaymentForm />
+    </Suspense>
+  );
+}
