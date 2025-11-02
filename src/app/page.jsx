@@ -23,8 +23,8 @@ export default function HomePage() {
          
           <div>
             <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">
-              Clinical Excellence in the Comfort of Your {" "}
-              <span className="text-teal-600">Home.</span>
+              Professional Physiotherapist at {" "}
+              <span className="text-teal-600">Your Doorstep.</span>
             </h1>
             <p className="text-xl text-gray-600 mb-10 max-w-lg">
               Book certified physiotherapists who come to your home.
