@@ -3,7 +3,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // 1. Initialize the SDK safely on the server
-const apiKey = "AIzaSyD-qIvkE1Oy8TLk_JfqZKdrRNfBnuTvGUM";
+const apiKey = process.env.GOOGLE_AI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 const MODEL_NAME = "gemini-2.5-flash";
 
