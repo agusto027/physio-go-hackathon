@@ -51,30 +51,30 @@ const PaymentStatusChecker = () => {
     <div className="text-center">
       {status === 'loading' ? (
         <div className="flex flex-col items-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-          <p className="mt-4 text-gray-600">Verifying payment status...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#38BDF8]"></div>
+          <p className="mt-4 text-[#94A3B8]">Verifying payment status...</p>
         </div>
       ) : status === 'succeeded' ? (
         <>
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-16 h-16 bg-[#38BDF8]/15 border border-[#38BDF8]/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-[#38BDF8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Booking Confirmed!</h2>
-          <p className="text-gray-600 mb-6">
+          <h2 className="text-2xl font-semibold text-white mb-2">Booking Confirmed!</h2>
+          <p className="text-[#94A3B8] mb-6">
             Your appointment has been successfully booked and payment processed.
           </p>
         </>
       ) : (
         <>
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-16 h-16 bg-red-500/15 border border-red-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900 mb-2">Payment Failed</h2>
-          <p className="text-gray-600 mb-6">
+          <h2 className="text-2xl font-semibold text-white mb-2">Payment Failed</h2>
+          <p className="text-[#94A3B8] mb-6">
             There was an issue processing your payment. Please try again.
           </p>
         </>
@@ -83,13 +83,13 @@ const PaymentStatusChecker = () => {
       <div className="space-y-4">
         <Link 
           href="/book"
-          className="block w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+          className="block w-full rounded-full bg-[#38BDF8] text-[#05070A] py-3 px-4 font-semibold shadow-[0_18px_35px_rgba(56,189,248,0.35)] transition hover:-translate-y-0.5"
         >
           {status === 'succeeded' ? 'Book Another Appointment' : 'Try Again'}
         </Link>
         <Link 
           href="/"
-          className="block w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors"
+          className="block w-full rounded-full border border-white/20 bg-transparent text-white py-3 px-4 font-semibold transition hover:border-white/40"
         >
           Return to Home
         </Link>
@@ -101,12 +101,12 @@ const PaymentStatusChecker = () => {
 // Main component with Suspense boundary
 export default function BookingConfirmation() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+    <div className="min-h-screen bg-[#0D1117] py-12">
+      <div className="max-w-md mx-auto rounded-3xl border border-white/10 bg-[#1A202C] shadow-[0_25px_60px_rgba(3,7,18,0.55)] p-8">
         <Suspense fallback={
           <div className="flex flex-col items-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-            <p className="mt-4 text-gray-600">Loading...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#38BDF8]"></div>
+            <p className="mt-4 text-[#94A3B8]">Loading...</p>
           </div>
         }>
           <PaymentStatusChecker />

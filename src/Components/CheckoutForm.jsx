@@ -62,8 +62,8 @@ const CheckoutForm = ({ amount }) => {
   if (!isReady) {
     return (
       <div className="text-center p-4">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-        <p className="mt-2 text-gray-600">Loading payment form...</p>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#38BDF8] mx-auto"></div>
+        <p className="mt-2 text-[#94A3B8]">Loading payment form...</p>
       </div>
     );
   }
@@ -71,11 +71,11 @@ const CheckoutForm = ({ amount }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="mb-4">
-        <h3 className="text-lg font-semibold mb-2">Payment Details</h3>
-        <p className="text-gray-600 mb-4">Amount to pay: ${amount}</p>
+        <h3 className="text-lg font-semibold mb-2 text-white">Payment Details</h3>
+        <p className="text-[#94A3B8] mb-4">Amount to pay: ${amount}</p>
       </div>
 
-      <div className="bg-white rounded-md shadow-sm p-4 border border-gray-200">
+      <div className="rounded-2xl border border-white/10 bg-[#0D1117] p-4">
         <PaymentElement 
           options={{
             layout: 'tabs',
@@ -92,7 +92,7 @@ const CheckoutForm = ({ amount }) => {
       />
       
       {errorMessage && (
-        <div className="bg-red-50 text-red-700 p-4 rounded-md text-sm border border-red-200">
+        <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl text-sm">
           <p className="font-semibold">Payment Error</p>
           <p>{errorMessage}</p>
         </div>
@@ -101,12 +101,12 @@ const CheckoutForm = ({ amount }) => {
       <button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+        className="w-full rounded-full bg-[#38BDF8] text-[#05070A] py-3 px-4 font-semibold shadow-[0_18px_35px_rgba(56,189,248,0.35)] transition hover:-translate-y-0.5 disabled:bg-[#1A202C] disabled:text-[#94A3B8] disabled:cursor-not-allowed disabled:shadow-none"
       >
         {isProcessing ? 'Processing Payment...' : `Pay $${amount}`}
       </button>
 
-      <p className="text-sm text-gray-500 text-center mt-4">
+      <p className="text-sm text-[#94A3B8] text-center mt-4">
         Your payment is secure. We use Stripe for secure payment processing.
       </p>
     </form>

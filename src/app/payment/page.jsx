@@ -9,15 +9,6 @@ import CheckoutForm from '@/Components/CheckoutForm';
 // Load stripe outside of components to avoid recreating stripe object on renders
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
-// Stripe appearance options
-const appearance = {
-  theme: 'stripe',
-  variables: {
-    colorPrimary: '#0066cc',
-    colorBackground: '#ffffff',
-    colorText: '#30313d',
-  },
-};
 
 const PaymentForm = () => {
   const [clientSecret, setClientSecret] = useState('');
@@ -145,12 +136,12 @@ const PaymentForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-2xl font-semibold text-center mb-6">Complete Your Payment</h2>
+    <div className="min-h-screen bg-[#0D1117] py-12">
+      <div className="max-w-md mx-auto rounded-3xl border border-white/10 bg-[#1A202C] shadow-[0_25px_60px_rgba(3,7,18,0.55)] p-8">
+        <h2 className="text-2xl font-semibold text-center mb-6 text-white">Complete Your Payment</h2>
         
         {paymentStatus === 'error' && (
-          <div className="bg-red-50 text-red-700 p-4 rounded mb-4">
+          <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-2xl mb-4">
             Payment failed. Please try again.
           </div>
         )}
@@ -160,7 +151,17 @@ const PaymentForm = () => {
             stripe={stripePromise} 
             options={{ 
               clientSecret,
-              appearance,
+              appearance: {
+                theme: 'night',
+                variables: {
+                  colorPrimary: '#38BDF8',
+                  colorBackground: '#0D1117',
+                  colorText: '#FFFFFF',
+                  colorDanger: '#ef4444',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  borderRadius: '16px',
+                },
+              },
               loader: 'auto',
             }}
           >
@@ -169,7 +170,7 @@ const PaymentForm = () => {
         )}
 
         {!clientSecret && (
-          <div className="text-center text-gray-600">
+          <div className="text-center text-[#94A3B8]">
             Loading payment form...
           </div>
         )}
@@ -183,11 +184,11 @@ export default function Payment() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-gray-50 py-12">
-          <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+        <div className="min-h-screen bg-[#0D1117] py-12">
+          <div className="max-w-md mx-auto rounded-3xl border border-white/10 bg-[#1A202C] shadow-[0_25px_60px_rgba(3,7,18,0.55)] p-8">
             <div className="flex flex-col items-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-              <p className="mt-4 text-gray-600">Loading payment form...</p>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#38BDF8]"></div>
+              <p className="mt-4 text-[#94A3B8]">Loading payment form...</p>
             </div>
           </div>
         </div>

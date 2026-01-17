@@ -23,43 +23,60 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="max-w-xl bg-white mx-auto px-4 py-20">
-      <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4 bg-white p-6 rounded-lg shadow"
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={form.name}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          value={form.email}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
-        />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          value={form.message}
-          onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 h-32 focus:outline-none focus:ring-2 focus:ring-teal-500"
-        />
-        <button
-          type="submit"
-          className="w-full bg-teal-600 text-white py-2 rounded-lg font-semibold hover:bg-teal-700 transition"
+    <div className="max-w-xl mx-auto px-4 py-20">
+      <div className="rounded-3xl border border-white/10 bg-[#1A202C] shadow-[0_25px_60px_rgba(3,7,18,0.55)] p-8">
+        <h2 className="text-3xl font-bold text-center mb-8 text-white">Contact Us</h2>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
         >
-          Send Message
-        </button>
-        {status && <p className="text-center text-teal-600 mt-4">{status}</p>}
-      </form>
+          <div>
+            <label className="block mb-1 text-xs font-semibold uppercase tracking-[0.35em] text-[#94A3B8]">
+              Your Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full rounded-2xl border border-white/10 bg-[#0D1117] px-4 py-3 text-white placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block mb-1 text-xs font-semibold uppercase tracking-[0.35em] text-[#94A3B8]">
+              Your Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full rounded-2xl border border-white/10 bg-[#0D1117] px-4 py-3 text-white placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block mb-1 text-xs font-semibold uppercase tracking-[0.35em] text-[#94A3B8]">
+              Your Message
+            </label>
+            <textarea
+              name="message"
+              placeholder="Enter your message"
+              value={form.message}
+              onChange={handleChange}
+              className="w-full rounded-2xl border border-white/10 bg-[#0D1117] px-4 py-3 h-32 text-white placeholder:text-[#94A3B8] focus:border-[#38BDF8] focus:outline-none"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full rounded-full bg-[#38BDF8] text-[#05070A] py-3 font-semibold shadow-[0_18px_35px_rgba(56,189,248,0.35)] transition hover:-translate-y-0.5"
+          >
+            Send Message
+          </button>
+          {status && <p className="text-center text-[#38BDF8] mt-4">{status}</p>}
+        </form>
+      </div>
     </div>
   );
 }

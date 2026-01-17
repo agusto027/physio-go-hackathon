@@ -3,10 +3,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // 1. Initialize the SDK safely on the server
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-if (!apiKey) {
-  throw new Error("Missing GEMINI_API_KEY environment variable");
-}
+const apiKey = "AIzaSyD-qIvkE1Oy8TLk_JfqZKdrRNfBnuTvGUM";
 const genAI = new GoogleGenerativeAI(apiKey);
 const MODEL_NAME = "gemini-2.5-flash";
 
@@ -26,7 +23,13 @@ const responseSchema = {
   required: ["type", "rationale"],
 };
 
-const systemInstruction = `You are an expert Physiotherapist Matcher AI... (Your full system instruction here)`;
+const systemInstruction = `You are an expert Physiotherapist Matcher AI. Your role is to analyze patient conditions, pain levels, and preferences to recommend the most suitable type of physiotherapist specialty. Consider factors like:
+- Condition severity and type
+- Pain level (1-10 scale)
+- Patient preferences for expertise areas
+- Best match for optimal recovery outcomes
+
+Provide clear, professional recommendations with concise rationale.`;
 
 // 3. Create the Server Action function
 export async function getAiRecommendation(condition, painLevel, expertise) {
@@ -37,20 +40,24 @@ export async function getAiRecommendation(condition, painLevel, expertise) {
       generationConfig: {
         responseMimeType: "application/json",
         responseSchema: responseSchema,
+        temperature: 0.7,
+        topP: 0.8,
+        topK: 40,
       },
     });
 
-    const userPrompt = `Patient Condition: "${condition}". Pain Level (1-10): ${painLevel}. Preferred Expertise: "${expertise}".`;
+    const userPrompt = `Patient Condition: "${condition}". Pain Level (1-10): ${painLevel}. Preferred Expertise: "${expertise || 'Not specified'}". Please recommend the best physiotherapist specialty type and provide a clear rationale.`;
 
     const result = await model.generateContent(userPrompt);
     const response = result.response;
     
     // Parse the JSON text from the model's response part
-    const data = JSON.parse(response.candidates[0].content.parts[0].text);
+    const text = response.candidates[0].content.parts[0].text;
+    const data = JSON.parse(text);
 
     return { data };
   } catch (e) {
     console.error("Gemini API Error:", e);
-    return { error: "Failed to get recommendation. Please try again." };
+    return { error: e.message || "Failed to get recommendation. Please try again." };
   }
 }
