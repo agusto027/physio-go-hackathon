@@ -2,9 +2,6 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// 1. Initialize the SDK safely on the server
-const apiKey = process.env.GOOGLE_AI_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey);
 const MODEL_NAME = "gemini-2.5-flash";
 
 // 2. Define the schema and system instruction (moved from your component)
@@ -34,6 +31,17 @@ Provide clear, professional recommendations with concise rationale.`;
 // 3. Create the Server Action function
 export async function getAiRecommendation(condition, painLevel, expertise) {
   try {
+    // Initialize lazily so builds don't crash if env vars aren't set.
+    const apiKey =
+      process.env.GOOGLE_AI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    if (!apiKey) {
+      return {
+        error:
+          "Missing GOOGLE_AI_API_KEY (preferred) or NEXT_PUBLIC_GEMINI_API_KEY (legacy). Add one in Vercel Project Settings → Environment Variables.",
+      };
+    }
+
+    const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
       model: MODEL_NAME,
       systemInstruction: systemInstruction,

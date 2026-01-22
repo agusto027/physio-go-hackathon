@@ -1,12 +1,35 @@
 import Stripe from 'stripe';
 
-// Initialize Stripe with API version
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-10-16' // Using a specific API version
-});
+export const runtime = 'nodejs';
+
+let stripeClient;
+
+function getStripeClient() {
+  if (stripeClient) return stripeClient;
+
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error('Missing STRIPE_SECRET_KEY');
+  }
+
+  stripeClient = new Stripe(secretKey, {
+    apiVersion: '2023-10-16',
+  });
+
+  return stripeClient;
+}
 
 export async function POST(request) {
   try {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return Response.json(
+        { error: 'Stripe is not configured (missing STRIPE_SECRET_KEY)' },
+        { status: 500 }
+      );
+    }
+
+    const stripe = getStripeClient();
+
     // Log the Stripe secret key presence (not the actual key)
     console.log('Stripe secret key present:', !!process.env.STRIPE_SECRET_KEY);
 
